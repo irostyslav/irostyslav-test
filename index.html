@@ -1,67 +1,132 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Dennis Chen’s Website</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="/main.css">
-		<link rel="stylesheet" href="/code.css">
-		<meta name="description" content="Webpage of Dennis Chen, CMU SCS class
-of 27.">
-		<link rel="icon" href="/favicon.svg">
-	</head>
-	<body>
-		<nav>
-			<a class="nav nav-home" href="/">Dennis Chen</a>
-			<a class="nav nav-link" href="/math">Math</a>
-			<a class="nav nav-link" href="/writing">Writing</a>
-			<a class="nav nav-link" href="/code">Code</a>
-			<a class="nav nav-link" href="https://puzz.dennisc.net">Puzzles</a>
+<head>
+	<title>Dennis Chen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Dennis Chen — CS student at CMU, math educator, and maker of things.">
+	<link rel="stylesheet" href="/main.css">
+	<link rel="icon" href="/favicon.svg">
+</head>
+<body>
+	<header class="site-header">
+		<nav class="top-nav">
+			<a class="nav-brand" href="#hero">Dennis Chen</a>
+			<div class="nav-links">
+				<a href="#about">About</a>
+				<a href="#work">Work</a>
+				<a href="#hobbies">Hobbies</a>
+				<a href="#contact">Contact</a>
+			</div>
 		</nav>
-		<main>
-			<h1>Dennis Chen’s Website</h1>
-<p>Hey there! I’m Dennis, and I’ll be studying computer science at CMU
-starting Fall ’23 and anticipate to graduate in the spring of ’27.</p>
-<p>People mostly know me for my work in math contests, particularly with
-<a href="https://mathadvance.org">Math Advance</a>, which I am the
-director of. Right now us prefrosh students are changing the direction
-of Math Advance to focus less on contests and more on general outreach,
-exposition, and teaching.</p>
-<p>My interests change pretty frequently, but some things I like to do
-as of now:</p>
-<ul>
-<li>Math</li>
-<li>Computers (Rust, Linux, LaTeX, some sysadmin stuff, HTML + CSS)</li>
-<li>Writing</li>
-</ul>
-<p>I also did design work before. The first draft of the MAT logo was by
-me. William changed it to a purple color scheme, which is currently on
-the final logo. I also have amateurish book, handout, and CV designs,
-the last two of which have been used semi-often by other people.</p>
-<h2 id="hobbies">Hobbies</h2>
-<ul>
-<li><a href="/sudoku-variants">Variant Sudoku</a> puzzles follow typical
-sudoku rules, but typically with a twist. Sometimes you may have to
-“color” cells that you know are the same but don’t know the value of
-yet, and sometimes you will even have to construct the regions of the
-puzzle yourself. I have some <a href="puzz-rec">beginner
-recommendations</a>.</li>
-<li><a href="/hanabi">Hanabi</a> is a cooperative card game where you
-see everyone’s cards except your own. You give clues (color, number) to
-your teammates so they learn the identity of their cards, and they give
-you clues so you learn your cards. The goal is to play stacks of cards
-like in solitaire — the default is 5 stacks of 5 different colors, but
-this can change.</li>
-</ul>
-		</main>
-		<footer>
-			<div>
-				<a href="/faq">FAQ</a> |
-				<a href="https://gitlab.com/chennisden/dennisc.net">Source Code</a> |
-				<a href="/publickey.txt">PGP Key</a>
+	</header>
+
+	<section id="hero" class="hero">
+		<div class="hero-content">
+			<h1>Hi, I'm Dennis.</h1>
+			<p class="hero-sub">CS student at CMU &middot; Math educator &middot; Builder of things</p>
+			<div class="hero-actions">
+				<a class="btn btn-primary" href="#about">Learn more</a>
+				<a class="btn btn-outline" href="mailto:dchen@dennisc.net">Get in touch</a>
 			</div>
-			<div>
-				<a href="mailto:dchen@dennisc.net">dchen@dennisc.net</a>
+		</div>
+	</section>
+
+	<main>
+		<section id="about" class="section">
+			<h2>About Me</h2>
+			<p>I'm studying computer science at CMU (SCS class of '27). Most people know me through my work in math
+			competitions, especially <a href="https://mathadvance.org">Math Advance</a>, an organization I direct.
+			We're currently shifting focus from contests toward broader outreach, exposition, and teaching.</p>
+			<p>My interests drift over time, but right now I'm into:</p>
+			<ul class="tag-list">
+				<li>Math</li>
+				<li>Rust</li>
+				<li>Linux</li>
+				<li>LaTeX</li>
+				<li>HTML &amp; CSS</li>
+				<li>Sysadmin</li>
+				<li>Writing</li>
+				<li>Design</li>
+			</ul>
+			<p>I also do design work — I made the first draft of the MAT logo and have created book, handout, and CV
+			designs that others have adopted.</p>
+		</section>
+
+		<section id="work" class="section section-alt">
+			<h2>Work &amp; Projects</h2>
+			<div class="card-grid">
+				<div class="card">
+					<h3>Math Advance</h3>
+					<p>A math education organization I direct, pivoting from competition prep toward general outreach and
+					teaching.</p>
+					<a href="https://mathadvance.org">mathadvance.org &rarr;</a>
+				</div>
+				<div class="card">
+					<h3>Puzzles</h3>
+					<p>Logic and variant sudoku puzzles I've constructed, published on my puzzle site.</p>
+					<a href="https://puzz.dennisc.net">puzz.dennisc.net &rarr;</a>
+				</div>
+				<div class="card">
+					<h3>Math</h3>
+					<p>Notes, handouts, and exposition on topics I find interesting.</p>
+					<a href="/math">View math &rarr;</a>
+				</div>
+				<div class="card">
+					<h3>Writing</h3>
+					<p>Essays and miscellaneous writing on things I care about.</p>
+					<a href="/writing">View writing &rarr;</a>
+				</div>
 			</div>
-		</footer>
-	</body>
+		</section>
+
+		<section id="hobbies" class="section">
+			<h2>Hobbies</h2>
+			<div class="hobby-list">
+				<div class="hobby">
+					<h3>Variant Sudoku</h3>
+					<p>Variant sudoku puzzles follow standard sudoku rules but add a twist — sometimes you color cells
+					that share a value without knowing it, and sometimes you construct the regions yourself. I have
+					<a href="/puzz-rec">beginner recommendations</a> if you want to dive in.</p>
+				</div>
+				<div class="hobby">
+					<h3>Hanabi</h3>
+					<p>A cooperative card game where you see everyone's hand except your own. Players exchange color and
+					number clues to help teammates play cards in order. Simple rules, surprisingly deep strategy.</p>
+				</div>
+				<div class="hobby">
+					<h3>Code</h3>
+					<p>Tinkering with Rust, Linux, and small web projects. I enjoy the intersection of good tooling and
+					clean design. See what I've built on <a href="/code">my code page</a>.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="section section-alt">
+			<h2>Get in Touch</h2>
+			<p>Feel free to reach out by email or browse the source for this site on GitLab.</p>
+			<div class="contact-links">
+				<a href="mailto:dchen@dennisc.net" class="contact-item">
+					<span class="contact-label">Email</span>
+					<span>dchen@dennisc.net</span>
+				</a>
+				<a href="https://gitlab.com/chennisden/dennisc.net" class="contact-item">
+					<span class="contact-label">Source</span>
+					<span>gitlab.com/chennisden/dennisc.net</span>
+				</a>
+				<a href="/publickey.txt" class="contact-item">
+					<span class="contact-label">PGP Key</span>
+					<span>publickey.txt</span>
+				</a>
+				<a href="/faq" class="contact-item">
+					<span class="contact-label">FAQ</span>
+					<span>Common questions answered</span>
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<p>&copy; Dennis Chen &middot; <a href="https://gitlab.com/chennisden/dennisc.net">Source</a> &middot; <a href="/publickey.txt">PGP</a></p>
+	</footer>
+</body>
 </html>
