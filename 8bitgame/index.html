@@ -6,7 +6,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="hud">
+    <span id="score">SCORE 0</span>
+    <span id="highscore">BEST 0</span>
+  </div>
   <canvas id="game" width="320" height="240"></canvas>
+  <div id="overlay">
+    <p id="overlay-msg">PRESS SPACE TO START</p>
+  </div>
+  <p id="hint">ARROWS / WASD to move &middot; SPACE to (re)start</p>
   <script src="script.js"></script>
 </body>
 </html>
