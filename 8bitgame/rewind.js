@@ -1,6 +1,8 @@
 (function () {
   const MAX_VISUAL_STEPS = 5;
   const STEP_PX = 36;
+  const HOLD_MS = 420;
+  const JITTER_PX = 14;
 
   let audioCtx = null;
 
@@ -48,7 +50,7 @@
 
     const hint = document.createElement('div');
     hint.id = 'rewind-hint';
-    hint.textContent = 'SLIDE LEFT · RELEASE TO REWIND';
+    hint.textContent = 'SWIPE UP TO REWIND';
 
     dial.appendChild(label);
     dial.appendChild(ticksWrap);
@@ -65,8 +67,11 @@
       const { zone, dial, ticksWrap, hint } = buildDial();
       const ticks = Array.from(ticksWrap.children);
       let active = false;
-      let dragging = false;
-      let startX = 0;
+      let tracking = false;
+      let armed = false;
+      let downX = 0;
+      let downY = 0;
+      let holdTimer = null;
       let index = 0;
 
       function setIndex(next) {
@@ -77,7 +82,7 @@
         ticks.forEach((tick, i) => tick.classList.toggle('active', i < index));
         hint.textContent = index > 0
           ? `RELEASE TO REWIND ${index} STEP${index > 1 ? 'S' : ''}`
-          : 'SLIDE LEFT · RELEASE TO REWIND';
+          : 'SWIPE UP TO REWIND';
         if (index > 0) {
           buzz();
           tickSound(index);
@@ -95,45 +100,72 @@
         ticks.forEach((tick) => tick.classList.remove('active'));
       }
 
-      function onStart(x) {
-        if (!active || getHistoryLength() === 0) return;
-        dragging = true;
-        startX = x;
+      function clearHoldTimer() {
+        clearTimeout(holdTimer);
+        holdTimer = null;
+      }
+
+      function reset() {
+        clearHoldTimer();
+        tracking = false;
+        armed = false;
+        hide();
+      }
+
+      function arm() {
+        holdTimer = null;
+        armed = true;
+        buzz();
         show();
       }
 
-      function onMove(x) {
-        if (!dragging) return;
-        const dx = x - startX;
-        if (dx >= 0) {
-          setIndex(0);
-          return;
-        }
-        setIndex(Math.floor(-dx / STEP_PX));
+      function onDown(x, y) {
+        if (!active || getHistoryLength() === 0) return;
+        tracking = true;
+        armed = false;
+        downX = x;
+        downY = y;
+        clearHoldTimer();
+        holdTimer = setTimeout(arm, HOLD_MS);
       }
 
-      function onEnd() {
-        if (!dragging) return;
-        dragging = false;
-        const stepsBack = index;
-        hide();
+      function onMove(x, y) {
+        if (!tracking) return;
+        if (!armed) {
+          if (Math.hypot(x - downX, y - downY) > JITTER_PX) reset();
+          return;
+        }
+        const dy = Math.max(0, downY - y);
+        setIndex(Math.floor(dy / STEP_PX));
+      }
+
+      function onUp() {
+        if (!tracking) return;
+        const stepsBack = armed ? index : 0;
+        reset();
         if (stepsBack > 0) onCommit(stepsBack);
       }
 
-      zone.addEventListener('touchstart', (e) => onStart(e.changedTouches[0].clientX), { passive: true });
-      zone.addEventListener('touchmove', (e) => onMove(e.changedTouches[0].clientX), { passive: true });
-      zone.addEventListener('touchend', onEnd);
-      zone.addEventListener('touchcancel', onEnd);
+      zone.addEventListener('touchstart', (e) => {
+        const t = e.changedTouches[0];
+        onDown(t.clientX, t.clientY);
+      }, { passive: true });
+      zone.addEventListener('touchmove', (e) => {
+        const t = e.changedTouches[0];
+        onMove(t.clientX, t.clientY);
+      }, { passive: true });
+      zone.addEventListener('touchend', onUp);
+      zone.addEventListener('touchcancel', onUp);
 
-      zone.addEventListener('mousedown', (e) => onStart(e.clientX));
-      window.addEventListener('mousemove', (e) => onMove(e.clientX));
-      window.addEventListener('mouseup', onEnd);
+      zone.addEventListener('mousedown', (e) => onDown(e.clientX, e.clientY));
+      window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+      window.addEventListener('mouseup', onUp);
 
       return {
         setActive(value) {
           active = value;
           zone.classList.toggle('active', value);
-          if (!value) hide();
+          if (!value) reset();
         },
       };
     },
