@@ -43,6 +43,7 @@
 
 #rewind-ticks {
   display: flex;
+  flex-direction: column-reverse;
   gap: 6px;
 }
 
