@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#000000">
   <title>8bitgame</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,11 +13,19 @@
     <span id="score">SCORE 0</span>
     <span id="highscore">BEST 0</span>
   </div>
-  <canvas id="game" width="320" height="240"></canvas>
-  <div id="overlay">
-    <p id="overlay-msg">PRESS SPACE TO START</p>
+  <div id="game-wrap">
+    <canvas id="game" width="320" height="240"></canvas>
+    <div id="overlay">
+      <p id="overlay-msg">TAP OR PRESS SPACE TO START</p>
+    </div>
   </div>
-  <p id="hint">ARROWS / WASD to move &middot; SPACE to (re)start</p>
+  <p id="hint">ARROWS / WASD / SWIPE to move &middot; SPACE or TAP to (re)start</p>
+  <div id="dpad">
+    <button id="btn-up" class="dpad-btn dpad-up" aria-label="Up">&#9650;</button>
+    <button id="btn-left" class="dpad-btn dpad-left" aria-label="Left">&#9664;</button>
+    <button id="btn-right" class="dpad-btn dpad-right" aria-label="Right">&#9654;</button>
+    <button id="btn-down" class="dpad-btn dpad-down" aria-label="Down">&#9660;</button>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

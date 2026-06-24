@@ -117,6 +117,11 @@ const KEY_DIRS = {
   d: { x: 1, y: 0 },
 };
 
+function setDirection(newDir) {
+  const isOpposite = newDir.x === -dir.x && newDir.y === -dir.y;
+  if (!isOpposite) nextDir = newDir;
+}
+
 window.addEventListener('keydown', (e) => {
   if (e.code === 'Space') {
     e.preventDefault();
@@ -127,12 +132,57 @@ window.addEventListener('keydown', (e) => {
   const newDir = KEY_DIRS[e.key];
   if (!newDir) return;
   e.preventDefault();
-
-  const isOpposite = newDir.x === -dir.x && newDir.y === -dir.y;
-  if (!isOpposite) nextDir = newDir;
+  setDirection(newDir);
 });
+
+overlayMsg.addEventListener('click', startGame);
+
+const DPAD_DIRS = {
+  'btn-up': { x: 0, y: -1 },
+  'btn-down': { x: 0, y: 1 },
+  'btn-left': { x: -1, y: 0 },
+  'btn-right': { x: 1, y: 0 },
+};
+
+Object.keys(DPAD_DIRS).forEach((id) => {
+  const btn = document.getElementById(id);
+  btn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    setDirection(DPAD_DIRS[id]);
+  }, { passive: false });
+  btn.addEventListener('click', () => setDirection(DPAD_DIRS[id]));
+});
+
+const SWIPE_THRESHOLD = 24;
+let touchStart = null;
+
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const t = e.changedTouches[0];
+  touchStart = { x: t.clientX, y: t.clientY };
+}, { passive: false });
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  if (!touchStart) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStart.x;
+  const dy = t.clientY - touchStart.y;
+  touchStart = null;
+
+  if (Math.abs(dx) < SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_THRESHOLD) {
+    if (!running) startGame();
+    return;
+  }
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    setDirection({ x: dx > 0 ? 1 : -1, y: 0 });
+  } else {
+    setDirection({ x: 0, y: dy > 0 ? 1 : -1 });
+  }
+}, { passive: false });
 
 resetState();
 draw();
-overlayMsg.textContent = 'PRESS SPACE TO START';
+overlayMsg.textContent = 'TAP OR PRESS SPACE TO START';
 overlayMsg.classList.add('visible');
