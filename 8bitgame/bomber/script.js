@@ -42,19 +42,19 @@ const SCORE_TIME_MULT = 10;
    P player start, E enemy start, K key, X exit */
 const LEVEL_MAP = [
   "#####################",
-  "#P.++.++++++++++.++E#",
-  "#.#.#.#+#.#+#.#+#+#+#",
-  "#+.+..+++++.++.++..+#",
-  "#.#+#.#.#+#.#+#+#.#+#",
-  "#++....+...+..+.+...#",
-  "#.#+#+#.#+#+#+#+#+#.#",
-  "#+++.K++...+++..++++#",
-  "#+#.#+#+#+#+#.#.#.#+#",
-  "#..+....+++.++++++++#",
-  "#+#+#+#.#.#+#+#+#+#+#",
-  "#..++++++.++.+++++..#",
-  "#.#+#+#+#.#+#.#+#+#.#",
-  "#......+++++++..+..X#",
+  "#P.+........+.+++..E#",
+  "#.#.#+#.#.#.#.#.#.#.#",
+  "#.+...++............#",
+  "#.#.#.#.#+#+#.#.#.#.#",
+  "#..........+...++...#",
+  "#.#.#+#.#.#.#.#.#.#.#",
+  "#....+..+.K.....+..+#",
+  "#+#.#+#.#.#.#.#+#.#.#",
+  "#...+.......+.++....#",
+  "#.#.#+#.#.#.#.#.#.#.#",
+  "#...+....++.......+.#",
+  "#+#.#+#+#+#.#.#+#.#.#",
+  "#..........++....+.X#",
   "#####################",
 ];
 
@@ -216,6 +216,12 @@ function centerTile(entity) {
   };
 }
 
+function hitboxOverlapsTile(entity, tx, ty) {
+  const tileX = tx * TILE;
+  const tileY = ty * TILE;
+  return entity.x < tileX + TILE && entity.x + HITBOX > tileX && entity.y < tileY + TILE && entity.y + HITBOX > tileY;
+}
+
 function boxesOverlap(a, b) {
   return a.x < b.x + HITBOX && a.x + HITBOX > b.x && a.y < b.y + HITBOX && a.y + HITBOX > b.y;
 }
@@ -287,8 +293,7 @@ function updateBombs(dt) {
   for (const bomb of bombs.slice()) {
     bomb.timer -= dt;
     if (!bomb.armed) {
-      const ownerTile = centerTile(bomb.owner);
-      if (ownerTile.x !== bomb.x || ownerTile.y !== bomb.y) bomb.armed = true;
+      if (!hitboxOverlapsTile(bomb.owner, bomb.x, bomb.y)) bomb.armed = true;
     }
     if (bomb.timer <= 0) explodeBomb(bomb);
   }
