@@ -33,5 +33,17 @@ const TETRIS_ICON = [
   [1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
+const BOMBER_ICON = [
+  [0, 0, 1, 1, 0, 0, 0, 0],
+  [0, 0, 0, 1, 1, 0, 0, 0],
+  [0, 0, 1, 1, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 0, 0, 0],
+  [1, 1, 0, 1, 1, 1, 0, 0],
+  [1, 1, 1, 1, 1, 1, 0, 0],
+  [1, 1, 0, 1, 1, 1, 0, 0],
+  [0, 1, 1, 1, 1, 0, 0, 0],
+];
+
 drawIcon('icon-snake', SNAKE_ICON);
 drawIcon('icon-tetris', TETRIS_ICON);
+drawIcon('icon-bomber', BOMBER_ICON);
