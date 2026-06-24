@@ -2,6 +2,7 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const scoreEl = document.getElementById('score');
+const highscoreEl = document.getElementById('highscore');
 const livesEl = document.getElementById('lives');
 const bombsEl = document.getElementById('bombs');
 const blastEl = document.getElementById('blast');
@@ -72,6 +73,17 @@ let state = STATE.TITLE;
 let tiles, player, enemies, bombs, explosions;
 let score, lives, bombCapacity, blastRadius, hasKey, levelTimeRemaining, timedOut;
 let lastTime = 0;
+
+let highscore = Number(localStorage.getItem('bomber-highscore') || 0);
+highscoreEl.textContent = `BEST ${highscore}`;
+
+function checkHighscore() {
+  if (score > highscore) {
+    highscore = score;
+    localStorage.setItem('bomber-highscore', String(highscore));
+    highscoreEl.textContent = `BEST ${highscore}`;
+  }
+}
 
 /* ---------- Input ---------- */
 const dirState = { up: 0, down: 0, left: 0, right: 0 };
@@ -327,12 +339,14 @@ function enterPlayerDead() {
 function gameOver() {
   state = STATE.GAME_OVER;
   player.alive = false;
+  checkHighscore();
   showOverlay(`GAME OVER\nSCORE ${score}\nPRESS R TO RESTART`);
 }
 
 function completeLevel() {
   score += SCORE_LEVEL + Math.floor(levelTimeRemaining) * SCORE_TIME_MULT;
   state = STATE.VICTORY;
+  checkHighscore();
   showOverlay(`YOU ESCAPED THE SHADOW MAZE\nSCORE ${score}\nPRESS R TO PLAY AGAIN`);
 }
 
