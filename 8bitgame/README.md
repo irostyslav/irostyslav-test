@@ -1,9 +1,11 @@
 # 8bitgame
 
-A starter project for an 8-bit style game.
+A monochrome 8-bit arcade with a home screen and multiple games. Mobile-friendly.
+
+Play it at https://irostyslav.github.io/irostyslav-test/8bitgame/
 
 ## Structure
 
-- `index.html` - entry point
-- `style.css` - styles
-- `script.js` - game logic
+- `index.html`, `style.css`, `home.js` - arcade home screen with game tiles
+- `snake/` - Snake game
+- `tetris/` - Tetris game

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#000000">
+  <title>Tetris — 8bitgame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="back-link" href="../index.html">&larr; ARCADE</a>
+  <div id="hud">
+    <span id="score">SCORE 0</span>
+    <span id="lines">LINES 0</span>
+    <span id="highscore">BEST 0</span>
+  </div>
+  <div id="play-area">
+    <div id="game-wrap">
+      <canvas id="board" width="180" height="360"></canvas>
+      <div id="overlay">
+        <p id="overlay-msg">TAP OR PRESS SPACE TO START</p>
+      </div>
+    </div>
+    <div id="next-wrap">
+      <span id="next-label">NEXT</span>
+      <canvas id="next" width="72" height="72"></canvas>
+      <span id="level-label">LEVEL <span id="level">1</span></span>
+    </div>
+  </div>
+  <p id="hint">ARROWS / WASD to move &middot; UP/W to rotate &middot; SPACE to drop or (re)start</p>
+  <div id="dpad">
+    <button id="btn-rotate" class="dpad-btn dpad-up" aria-label="Rotate">&#8635;</button>
+    <button id="btn-left" class="dpad-btn dpad-left" aria-label="Left">&#9664;</button>
+    <button id="btn-right" class="dpad-btn dpad-right" aria-label="Right">&#9654;</button>
+    <button id="btn-down" class="dpad-btn dpad-down" aria-label="Soft drop">&#9660;</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
