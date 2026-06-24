@@ -14,6 +14,11 @@ const BLACK = '#000';
 
 let snake, dir, nextDir, food, score, highscore, running, loopId;
 
+const MAX_HISTORY = 5;
+let history = [];
+let hasLost = false;
+let rewindController;
+
 highscore = Number(localStorage.getItem('8bitgame-highscore') || 0);
 highscoreEl.textContent = `BEST ${highscore}`;
 
@@ -28,6 +33,43 @@ function resetState() {
   score = 0;
   scoreEl.textContent = `SCORE ${score}`;
   placeFood();
+  history = [];
+  hasLost = false;
+  if (rewindController) rewindController.setActive(false);
+}
+
+function snapshotState() {
+  return {
+    snake: snake.map((s) => ({ ...s })),
+    dir: { ...dir },
+    nextDir: { ...nextDir },
+    food: { ...food },
+    score,
+  };
+}
+
+function recordHistory() {
+  history.push(snapshotState());
+  if (history.length > MAX_HISTORY) history.shift();
+}
+
+function restoreFromHistory(stepsBack) {
+  const snap = history[Math.max(0, history.length - stepsBack)];
+  if (!snap) return;
+  snake = snap.snake.map((s) => ({ ...s }));
+  dir = { ...snap.dir };
+  nextDir = { ...snap.nextDir };
+  food = { ...snap.food };
+  score = snap.score;
+  scoreEl.textContent = `SCORE ${score}`;
+  history = [];
+  hasLost = false;
+  if (rewindController) rewindController.setActive(false);
+  draw();
+  overlayMsg.classList.remove('visible');
+  running = true;
+  clearInterval(loopId);
+  loopId = setInterval(step, TICK_MS);
 }
 
 function placeFood() {
@@ -62,6 +104,7 @@ function draw() {
 }
 
 function step() {
+  recordHistory();
   dir = nextDir;
   const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
@@ -88,6 +131,8 @@ function step() {
 function gameOver() {
   running = false;
   clearInterval(loopId);
+  hasLost = true;
+  if (rewindController) rewindController.setActive(true);
   if (score > highscore) {
     highscore = score;
     localStorage.setItem('8bitgame-highscore', String(highscore));
@@ -181,6 +226,11 @@ canvas.addEventListener('touchend', (e) => {
     setDirection({ x: 0, y: dy > 0 ? 1 : -1 });
   }
 }, { passive: false });
+
+rewindController = window.RewindDial.attach({
+  getHistoryLength: () => history.length,
+  onCommit: restoreFromHistory,
+});
 
 resetState();
 draw();

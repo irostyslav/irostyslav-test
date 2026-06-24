@@ -64,6 +64,11 @@ const TYPES = Object.keys(SHAPES);
 
 let board, piece, nextType, score, lines, level, highscore, running, dropTimer;
 
+const MAX_HISTORY = 5;
+let history = [];
+let hasLost = false;
+let rewindController;
+
 highscore = Number(localStorage.getItem('tetris-highscore') || 0);
 highscoreEl.textContent = `BEST ${highscore}`;
 
@@ -105,6 +110,46 @@ function resetState() {
   levelEl.textContent = level;
   nextType = randomType();
   piece = spawnPiece(randomType());
+  history = [];
+  hasLost = false;
+  if (rewindController) rewindController.setActive(false);
+}
+
+function snapshotState() {
+  return {
+    board: board.map((row) => row.slice()),
+    piece: { ...piece },
+    nextType,
+    score,
+    lines,
+    level,
+  };
+}
+
+function recordHistory() {
+  history.push(snapshotState());
+  if (history.length > MAX_HISTORY) history.shift();
+}
+
+function restoreFromHistory(stepsBack) {
+  const snap = history[Math.max(0, history.length - stepsBack)];
+  if (!snap) return;
+  board = snap.board.map((row) => row.slice());
+  piece = { ...snap.piece };
+  nextType = snap.nextType;
+  score = snap.score;
+  lines = snap.lines;
+  level = snap.level;
+  scoreEl.textContent = `SCORE ${score}`;
+  linesEl.textContent = `LINES ${lines}`;
+  levelEl.textContent = level;
+  history = [];
+  hasLost = false;
+  if (rewindController) rewindController.setActive(false);
+  draw();
+  overlayMsg.classList.remove('visible');
+  running = true;
+  restartDropTimer();
 }
 
 function dropSpeed() {
@@ -205,12 +250,14 @@ function lockPiece() {
 }
 
 function step() {
+  recordHistory();
   if (!tryMove(0, 1)) {
     lockPiece();
   }
 }
 
 function hardDrop() {
+  recordHistory();
   while (tryMove(0, 1)) {}
   lockPiece();
 }
@@ -223,6 +270,8 @@ function restartDropTimer() {
 function gameOver() {
   running = false;
   clearInterval(dropTimer);
+  hasLost = true;
+  if (rewindController) rewindController.setActive(true);
   if (score > highscore) {
     highscore = score;
     localStorage.setItem('tetris-highscore', String(highscore));
@@ -306,6 +355,11 @@ document.getElementById('btn-rotate').addEventListener('click', () => {
 bindRepeatable('btn-left', () => running && tryMove(-1, 0));
 bindRepeatable('btn-right', () => running && tryMove(1, 0));
 bindRepeatable('btn-down', () => running && tryMove(0, 1));
+
+rewindController = window.RewindDial.attach({
+  getHistoryLength: () => history.length,
+  onCommit: restoreFromHistory,
+});
 
 resetState();
 draw();

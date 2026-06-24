@@ -1,0 +1,63 @@
+#rewind-zone {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 140px;
+  pointer-events: none;
+  touch-action: none;
+  z-index: 20;
+}
+
+#rewind-zone.active {
+  pointer-events: auto;
+}
+
+#rewind-dial {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #000;
+  border: 2px solid #fff;
+  padding: 10px 14px;
+  z-index: 30;
+  font-family: 'Courier New', monospace;
+  color: #fff;
+  letter-spacing: 1px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#rewind-dial.visible {
+  display: flex;
+}
+
+#rewind-label {
+  font-size: 12px;
+}
+
+#rewind-ticks {
+  display: flex;
+  gap: 6px;
+}
+
+.rewind-tick {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #fff;
+}
+
+.rewind-tick.active {
+  background: #fff;
+}
+
+#rewind-hint {
+  font-size: 10px;
+  opacity: 0.8;
+  text-align: center;
+}
