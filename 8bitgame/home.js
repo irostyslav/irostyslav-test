@@ -47,3 +47,5 @@ const BOMBER_ICON = [
 drawIcon('icon-snake', SNAKE_ICON);
 drawIcon('icon-tetris', TETRIS_ICON);
 drawIcon('icon-bomber', BOMBER_ICON);
+
+document.getElementById('refresh-btn').addEventListener('click', () => location.reload());
