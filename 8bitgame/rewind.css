@@ -44,13 +44,14 @@
 #rewind-ticks {
   display: flex;
   flex-direction: column-reverse;
-  gap: 6px;
+  gap: 2px;
+  max-height: 50vh;
 }
 
 .rewind-tick {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #fff;
+  width: 18px;
+  height: 8px;
+  border: 1px solid #fff;
 }
 
 .rewind-tick.active {

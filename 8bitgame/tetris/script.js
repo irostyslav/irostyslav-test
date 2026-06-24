@@ -64,7 +64,7 @@ const TYPES = Object.keys(SHAPES);
 
 let board, piece, nextType, score, lines, level, highscore, running, dropTimer;
 
-const MAX_HISTORY = 5;
+const MAX_HISTORY = 100;
 let history = [];
 let hasLost = false;
 let rewindController;

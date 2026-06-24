@@ -14,7 +14,7 @@ const BLACK = '#000';
 
 let snake, dir, nextDir, food, score, highscore, running, loopId;
 
-const MAX_HISTORY = 5;
+const MAX_HISTORY = 100;
 let history = [];
 let hasLost = false;
 let rewindController;
