@@ -1,19 +1,20 @@
 (function () {
-  const MAX_VISUAL_STEPS = 5;
+  const MAX_VISUAL_STEPS = 20;
+  const STEPS_PER_TICK = 5;
   const STEP_PX = 36;
   const HOLD_MS = 420;
   const JITTER_PX = 14;
 
   let audioCtx = null;
 
-  function tickSound(stepsBack) {
+  function tickSound(tickIndex) {
     try {
       audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'square';
-      osc.frequency.value = 520 + stepsBack * 50;
+      osc.frequency.value = 520 + tickIndex * 50;
       const now = audioCtx.currentTime;
       gain.gain.setValueAtTime(0.06, now);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
@@ -75,13 +76,14 @@
       let index = 0;
 
       function setIndex(next) {
-        const max = Math.min(MAX_VISUAL_STEPS, getHistoryLength());
+        const max = Math.min(MAX_VISUAL_STEPS, Math.floor(getHistoryLength() / STEPS_PER_TICK));
         next = Math.max(0, Math.min(max, next));
         if (next === index) return;
         index = next;
+        const gameSteps = index * STEPS_PER_TICK;
         ticks.forEach((tick, i) => tick.classList.toggle('active', i < index));
         hint.textContent = index > 0
-          ? `RELEASE TO REWIND ${index} STEP${index > 1 ? 'S' : ''}`
+          ? `RELEASE TO REWIND ${gameSteps} STEPS`
           : 'SWIPE UP TO REWIND';
         if (index > 0) {
           buzz();
@@ -141,7 +143,7 @@
 
       function onUp() {
         if (!tracking) return;
-        const stepsBack = armed ? index : 0;
+        const stepsBack = armed ? index * STEPS_PER_TICK : 0;
         reset();
         if (stepsBack > 0) onCommit(stepsBack);
       }
