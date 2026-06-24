@@ -9,3 +9,4 @@ Play it at https://irostyslav.github.io/irostyslav-test/8bitgame/
 - `index.html`, `style.css`, `home.js` - arcade home screen with game tiles
 - `snake/` - Snake game
 - `tetris/` - Tetris game
+- `bomber/` - Shadow Bomber game

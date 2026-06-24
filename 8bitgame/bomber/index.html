@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#000000">
+  <title>Shadow Bomber — 8bitgame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="back-link" href="../index.html">&larr; ARCADE</a>
+  <div id="hud">
+    <span id="score">SCORE 000000</span>
+    <span id="lives">LIVES x3</span>
+    <span id="bombs">BOMBS 1</span>
+    <span id="blast">BLAST 2</span>
+    <span id="time">TIME 180</span>
+    <span id="key-status">KEY &#10007;</span>
+  </div>
+  <div id="game-wrap">
+    <canvas id="game" width="672" height="480"></canvas>
+    <div id="overlay">
+      <p id="overlay-msg">SHADOW BOMBER&#10;TAP OR PRESS SPACE TO START</p>
+    </div>
+  </div>
+  <p id="hint">ARROWS / WASD to move &middot; SPACE to bomb &middot; P/ESC pause &middot; R restart</p>
+  <div id="dpad">
+    <button id="btn-up" class="dpad-btn dpad-up" aria-label="Up">&#9650;</button>
+    <button id="btn-left" class="dpad-btn dpad-left" aria-label="Left">&#9664;</button>
+    <button id="btn-bomb" class="dpad-btn dpad-bomb" aria-label="Bomb">&#9679;</button>
+    <button id="btn-right" class="dpad-btn dpad-right" aria-label="Right">&#9654;</button>
+    <button id="btn-down" class="dpad-btn dpad-down" aria-label="Down">&#9660;</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
