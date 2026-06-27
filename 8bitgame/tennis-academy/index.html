@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#000000">
+  <title>Tennis Academy — 8bitgame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="back-link" href="../index.html">&larr; ARCADE</a>
+  <div id="hud">
+    <span id="academy-score-points">0 - 0</span>
+    <span id="academy-score-games">GAMES 0-0</span>
+    <span id="academy-score-sets">SETS 0-0</span>
+    <span id="academy-server-indicator">SERVE: -</span>
+  </div>
+  <div id="game-wrap">
+    <canvas id="game" width="480" height="320"></canvas>
+    <div id="overlay">
+      <div id="overlay-msg">
+        <div id="menu-panel">
+          <p id="menu-title">TENNIS ACADEMY</p>
+
+          <div class="menu-group" data-setting="mode">
+            <p class="menu-label">MODE</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="tutorial">TUTORIAL</button>
+              <button class="menu-opt" data-value="match">MATCH</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="difficulty">
+            <p class="menu-label">DIFFICULTY (MATCH ONLY)</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="easy">EASY</button>
+              <button class="menu-opt" data-value="medium">MEDIUM</button>
+              <button class="menu-opt" data-value="hard">HARD</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="coachVoice">
+            <p class="menu-label">COACH VOICE</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="off">OFF</button>
+              <button class="menu-opt" data-value="on">ON</button>
+            </div>
+          </div>
+
+          <button id="menu-start-btn">PRESS SPACE OR TAP TO START</button>
+        </div>
+        <div id="overlay-text"></div>
+      </div>
+    </div>
+  </div>
+  <div id="coach-panel">
+    <div id="coach-header">
+      <span id="coach-label">COACH</span>
+      <span id="coach-step-indicator"></span>
+    </div>
+    <p id="coach-text">Welcome! Choose Tutorial or Match above to begin.</p>
+    <ul id="coach-log"></ul>
+    <div id="coach-nav">
+      <button id="tut-prev-btn" class="menu-opt" type="button">BACK</button>
+      <button id="tut-next-btn" class="menu-opt" type="button">NEXT</button>
+    </div>
+  </div>
+  <p id="hint">ARROWS / WASD or D-PAD to move &middot; SPACE or TAP to serve &middot; P/ESC pause &middot; R menu</p>
+  <div id="dpad">
+    <button id="btn-up" class="dpad-btn dpad-up" aria-label="Up">&#9650;</button>
+    <button id="btn-left" class="dpad-btn dpad-left" aria-label="Left">&#9664;</button>
+    <button id="btn-right" class="dpad-btn dpad-right" aria-label="Right">&#9654;</button>
+    <button id="btn-down" class="dpad-btn dpad-down" aria-label="Down">&#9660;</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
