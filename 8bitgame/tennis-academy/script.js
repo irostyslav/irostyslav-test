@@ -141,11 +141,46 @@ function appendCoachLog(text) {
   while (coachLogEl.children.length > 5) coachLogEl.removeChild(coachLogEl.firstChild);
 }
 
+const FEMALE_VOICE_NAMES = [
+  'samantha', 'victoria', 'karen', 'moira', 'tessa', 'fiona', 'veena', 'zira',
+  'susan', 'allison', 'ava', 'serena', 'female', 'woman', 'kathy', 'fenella',
+];
+
+let cachedCoachVoice = null;
+
+function pickCoachVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return null;
+  const english = voices.filter((v) => v.lang && v.lang.toLowerCase().startsWith('en'));
+  const pool = english.length ? english : voices;
+  const named = pool.find((v) => FEMALE_VOICE_NAMES.some((n) => v.name.toLowerCase().includes(n)));
+  if (named) return named;
+  const flaggedFemale = pool.find((v) => /female/i.test(v.name));
+  if (flaggedFemale) return flaggedFemale;
+  const notMale = pool.find((v) => !/male/i.test(v.name));
+  return notMale || pool[0];
+}
+
+function getCoachVoice() {
+  if (!cachedCoachVoice) cachedCoachVoice = pickCoachVoice();
+  return cachedCoachVoice;
+}
+
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.addEventListener('voiceschanged', () => { cachedCoachVoice = pickCoachVoice(); });
+}
+
 function speakCoachMessage(text) {
   if (!('speechSynthesis' in window)) return;
   try {
     window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voice = getCoachVoice();
+    if (voice) utterance.voice = voice;
+    utterance.pitch = 1.15;
+    utterance.rate = 1.0;
+    window.speechSynthesis.speak(utterance);
   } catch (e) { /* speech synthesis unavailable in this environment */ }
 }
 
