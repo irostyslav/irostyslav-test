@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#000000">
+  <title>Arcade Tennis — 8bitgame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="back-link" href="../index.html">&larr; ARCADE</a>
+  <div id="hud">
+    <span id="score-points">0 - 0</span>
+    <span id="score-games">GAMES 0-0</span>
+    <span id="score-sets">SETS 0-0</span>
+    <span id="server-indicator">SERVE: -</span>
+    <span id="wins">WINS 0</span>
+  </div>
+  <div id="game-wrap">
+    <canvas id="game" width="480" height="320"></canvas>
+    <div id="overlay">
+      <div id="overlay-msg">
+        <div id="menu-panel">
+          <p id="menu-title">ARCADE TENNIS</p>
+
+          <div class="menu-group" data-setting="difficulty">
+            <p class="menu-label">DIFFICULTY</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="easy">EASY</button>
+              <button class="menu-opt" data-value="medium">MEDIUM</button>
+              <button class="menu-opt" data-value="hard">HARD</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="matchFormat">
+            <p class="menu-label">MATCH</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="1">BEST OF 1</button>
+              <button class="menu-opt" data-value="3">BEST OF 3</button>
+              <button class="menu-opt" data-value="5">BEST OF 5</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="ballSpeed">
+            <p class="menu-label">BALL SPEED</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="slow">SLOW</button>
+              <button class="menu-opt" data-value="normal">NORMAL</button>
+              <button class="menu-opt" data-value="fast">FAST</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="paddleSize">
+            <p class="menu-label">PADDLE SIZE</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="small">SMALL</button>
+              <button class="menu-opt" data-value="normal">NORMAL</button>
+              <button class="menu-opt" data-value="large">LARGE</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="deuceRule">
+            <p class="menu-label">GAME POINT</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="deuce">DEUCE</button>
+              <button class="menu-opt" data-value="sudden">SUDDEN DEATH</button>
+            </div>
+          </div>
+
+          <div class="menu-group" data-setting="sound">
+            <p class="menu-label">SOUND</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="on">ON</button>
+              <button class="menu-opt" data-value="off">OFF</button>
+            </div>
+          </div>
+
+          <button id="menu-start-btn">PRESS SPACE OR TAP TO START</button>
+        </div>
+        <div id="overlay-text"></div>
+      </div>
+    </div>
+  </div>
+  <p id="hint">UP/DOWN or W/S or D-PAD to move &middot; SPACE or TAP to serve &middot; P/ESC pause &middot; R new match</p>
+  <div id="dpad">
+    <button id="btn-up" class="dpad-btn dpad-up" aria-label="Up">&#9650;</button>
+    <button id="btn-down" class="dpad-btn dpad-down" aria-label="Down">&#9660;</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
