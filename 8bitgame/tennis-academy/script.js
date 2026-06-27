@@ -526,7 +526,6 @@ function handleLanding() {
   const hitterWasPlayer = flight.hitterIsPlayer;
   const wasServe = flight.isServe;
   flight = null;
-  ball.visible = false;
   state = STATE.MATCH_POINT_END;
 
   if (!inBounds) {
