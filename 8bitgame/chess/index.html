@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f1e9d6">
+  <title>Chess — 8bitgame</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="back-link" href="../index.html">&larr; ARCADE</a>
+
+  <div id="title-block">
+    <div id="badge-row">
+      <button id="badge-help" class="badge-btn" type="button" aria-label="Rules">?</button>
+      <button id="badge-turn" class="badge-btn" type="button" aria-label="Turn indicator">&#9818;</button>
+      <button id="badge-moves" class="badge-btn" type="button" aria-label="Toggle move list">&#9814;</button>
+    </div>
+    <h1 id="game-title">CHESS</h1>
+    <p id="colophon">8BITGAME ARCADE &middot; No. 06</p>
+  </div>
+
+  <div id="hud">
+    <span id="hud-status">SET DIFFICULTY TO BEGIN</span>
+  </div>
+
+  <div id="game-wrap">
+    <canvas id="game" width="480" height="480"></canvas>
+    <div id="overlay">
+      <div id="overlay-msg">
+        <div id="menu-panel">
+          <p id="menu-title">CHESS</p>
+
+          <div class="menu-group" data-setting="difficulty">
+            <p class="menu-label">DIFFICULTY</p>
+            <div class="menu-options">
+              <button class="menu-opt" data-value="easy">EASY</button>
+              <button class="menu-opt" data-value="medium">MEDIUM</button>
+              <button class="menu-opt" data-value="hard">HARD</button>
+            </div>
+          </div>
+
+          <button id="menu-start-btn">PRESS SPACE OR TAP TO START</button>
+        </div>
+        <div id="overlay-text"></div>
+        <div id="promo-panel">
+          <p class="menu-label">PROMOTE PAWN TO</p>
+          <div class="menu-options">
+            <button class="menu-opt" data-piece="q">QUEEN</button>
+            <button class="menu-opt" data-piece="r">ROOK</button>
+            <button class="menu-opt" data-piece="b">BISHOP</button>
+            <button class="menu-opt" data-piece="n">KNIGHT</button>
+          </div>
+        </div>
+        <div id="help-panel">
+          <p class="menu-label">RULES</p>
+          <p id="help-text">Standard chess rules apply: check, checkmate, stalemate, castling, en passant and pawn promotion are all enforced. You play White and move first; the AI plays Black. Click or tap a piece to see its legal moves, then tap a highlighted square to move. Use RESIGN or OFFER DRAW below the board if you want to end the game early.</p>
+          <button id="help-close-btn" class="menu-opt" type="button">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="action-row">
+    <button id="resign-btn" class="menu-opt" type="button">RESIGN</button>
+    <button id="draw-btn" class="menu-opt" type="button">OFFER DRAW</button>
+  </div>
+
+  <div id="info-panel">
+    <div id="captured-row">
+      <div id="captured-white" class="captured-tray"></div>
+      <div id="captured-black" class="captured-tray"></div>
+    </div>
+    <div id="movelist-wrap">
+      <ol id="move-list"></ol>
+    </div>
+  </div>
+
+  <p id="hint">TAP/CLICK a piece, then a highlighted square to move &middot; P/ESC pause &middot; R menu</p>
+
+  <script src="script.js"></script>
+</body>
+</html>
